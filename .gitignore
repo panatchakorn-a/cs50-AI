@@ -1,0 +1,7 @@
+# general files
+**/.DS_store
+**/.*
+**/__pycache__
+
+# specified directories
+*/gtsrb

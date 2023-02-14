@@ -87,17 +87,17 @@ def get_model():
     The output layer should have `NUM_CATEGORIES` units, one for each category.
     """
     model = keras.models.Sequential([
-        # Convolutional layer: Learn 16 filters using a 3x3 kernel
+        # Convolutional layer: Learn 16 filters using a 5x5 kernel
         layers.Conv2D(16, (5, 5), activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)),
 
-        # Max-pooling layer: using 2x2 pool size
+        # Max-pooling layer: using 2x2 pool size (+ dropout)
         layers.MaxPooling2D(pool_size=(2, 2)),
         layers.Dropout(0.2),
 
-        # Convolutional layer: Learn 32 filters using a 3x3 kernel
+        # Convolutional layer: Learn 32 filters using a 5x5 kernel
         layers.Conv2D(32, (5, 5), activation="relu"),
 
-        # Max-pooling layer: using 2x2 pool size
+        # Max-pooling layer: using 2x2 pool size (+ dropout)
         layers.MaxPooling2D(pool_size=(2, 2)),
         layers.Dropout(0.2),
 

@@ -127,6 +127,7 @@ def powerset(s):
         )
     ]
 
+
 def get_num_gene(name, one_gene, two_genes):
     """
     Return the number of copies of mutated gene from person's name
@@ -137,6 +138,7 @@ def get_num_gene(name, one_gene, two_genes):
         return 2
     else:
         return 0
+
 
 def get_from(num_gene, is_inherit):
     """
@@ -205,13 +207,9 @@ def update(probabilities, one_gene, two_genes, have_trait, p):
     the person is in `have_gene` and `have_trait`, respectively.
     """
     for name in probabilities.keys():
-        # gene
-        if name not in one_gene and name not in two_genes:
-            probabilities[name]["gene"][0] += p
-        elif name in one_gene:
-            probabilities[name]["gene"][1] += p
-        else:
-            probabilities[name]["gene"][2] += p
+        # gene        
+        num_gene = get_num_gene(name, one_gene, two_genes)
+        probabilities[name]["gene"][num_gene] += p
 
         # trait
         if name in have_trait:
@@ -226,12 +224,12 @@ def normalize(probabilities):
     """
     for name in probabilities.keys():
         total = sum(probabilities[name]["gene"].values())
-        for k, _ in probabilities[name]["gene"].items():
-            probabilities[name]["gene"][k] = probabilities[name]["gene"][k] / total
+        for k in probabilities[name]["gene"].keys():
+            probabilities[name]["gene"][k] /= total
         
         total = sum(probabilities[name]["trait"].values())
-        for k, _ in probabilities[name]["trait"].items():
-            probabilities[name]["trait"][k] = probabilities[name]["trait"][k] / total
+        for k in probabilities[name]["trait"].keys():
+            probabilities[name]["trait"][k] /= total
 
 
 if __name__ == "__main__":
